@@ -4,7 +4,6 @@ class Channel::Driver::Sms::AliyunSMS
 
   def send(options, attr, _notification = false)
     Rails.logger.info "Sending SMS to recipient #{attr[:recipient]}"
-
     return true if Setting.get('import_mode')
     Rails.logger.info "Set Aliyun SMS environment"
     Aliyun::Sms.configure do |config|
