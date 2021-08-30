@@ -31,6 +31,9 @@ jobs:
             log="${log}$(awk '!/[[:punct:]]$/ && NF{$NF=$NF"."}1' <<<"$msg")"
           done
           changeLog=$(printf '[{"version": "%s", "date": "%s", "log": "%s" } ]' "$version" "$today" "$log")
+
+          szpm=$(curl "$base_url/latest" -s -L -I -o /dev/null -w '%{url_effective}')
+          szpm=$(wget -qO- "$base_url/download/${szpm##*/}/$file_name")
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
