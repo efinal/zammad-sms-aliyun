@@ -1,5 +1,7 @@
 Based on the fork project and https://github.com/VICTOR-LUO-F/aliyun-sms to build an Aliyun SMS notification package for zammad.
 
+==================================================
+
 ![Sms77.io Logo](https://www.sms77.io/wp-content/uploads/2019/07/sms77-Logo-400x79.png "sms77")
 
 # Zammad Package for the Sms77.io SMS Gateway
