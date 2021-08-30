@@ -21,7 +21,7 @@ jobs:
         run: |
           today="$(date +'%Y-%d-%m' -u) 00:00:00 UTC"
           base_url=https://github.com/$REPOSITORY/releases
-          file_name=sms77-sms.szpm && echo "::set-output name=file_name::${file_name}"
+          file_name=aliyun-sms.szpm && echo "::set-output name=file_name::${file_name}"
           version=${REF##*/} && [[ $version != [0-9]* ]] && version="${version:1}"
 
           log=''
