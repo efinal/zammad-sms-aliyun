@@ -6,6 +6,7 @@ on:
     tags: 'v*'
     paths:
       - '**.rb'
+      - '**.yml'
 jobs:
   build:
     runs-on: ubuntu-latest
