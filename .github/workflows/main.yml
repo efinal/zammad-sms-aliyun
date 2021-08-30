@@ -30,22 +30,6 @@ jobs:
             msg=$(echo "$commit" | base64 --decode | jq -r ".message")
             log="${log}$(awk '!/[[:punct:]]$/ && NF{$NF=$NF"."}1' <<<"$msg")"
           done
-          changeLog=$(printf '[{"version": "%s", "date": "%s", "log": "%s" } ]' "$version" "$today" "$log")
-
-          szpm=$(curl "$base_url/latest" -s -L -I -o /dev/null -w '%{url_effective}')
-          szpm=$(wget -qO- "$base_url/download/${szpm##*/}/$file_name")
-          szpm=$(jq -r ".change_log += $changeLog" <<<"$szpm")
-          szpm=$(jq -r --arg v "$version" '.version = $v' <<<"$szpm")
-          szpm=$(jq -r --arg t "$today" '.builddate = $t' <<<"$szpm")
-
-          for k in $(jq '.files | keys | .[]' <<<"$szpm"); do
-            loc=$(jq -r ".files[$k].location" <<<"$szpm")
-            c=$(base64 "${loc##*/}" -w 0)
-            szpm=$(jq -r --arg k "$k" --arg c "$c" '.files[$k|tonumber].content = $c' <<<"$szpm")
-          done
-
-          echo "$szpm"
-          echo "$szpm" | python -m json.tool >>/dev/null && exit 0 || echo "NOT valid JSON" && exit 1
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
