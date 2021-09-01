@@ -25,9 +25,9 @@ class Channel::Driver::Sms::Aliyunsms
       }.to_json
       out_id = ''
       if Setting.get('developer_mode') != true
-        Aliyun::Sms.send(attr[:recipient], options[:template_code], template_param, out_id)
-        Rails.logger.info "Send SMS Response #{out_id}"
-        #raise out_id if '100' != out_id
+        send_ret = Aliyun::Sms.send(attr[:recipient], options[:template_code], template_param)
+        Rails.logger.info "Send SMS Response code #{send_ret.response_code}, body #{send_ret.response_body}"
+        raise "发送短信错误" if 200 != send_ret.response_code
       end
 
       true
