@@ -1,5 +1,7 @@
-<<<<<<< HEAD
 Based on the fork project and https://github.com/VICTOR-LUO-F/aliyun-sms to build an Aliyun SMS notification package for zammad.
+
+可以follow这里：https://lcx.wien/blog/how-to-create-your-custom-zammad-package/ 将rb文件编译成 szpm
+其实就是将rb文件做成base64，然后填写到这里的szpm的模板的对应位置就可以了
 
 ==================================================
 
@@ -19,8 +21,3 @@ Based on the fork project and https://github.com/VICTOR-LUO-F/aliyun-sms to buil
 ### License
 
 This respository is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
-=======
-# zammad-sms-aliyun
-
-阿里云短信通知渠道
->>>>>>> 50ffe54122f33bba213a971f9c5c45f5d19523e3
