@@ -1,11 +1,11 @@
 require 'aliyun/sms'
-class Channel::Driver::Sms::AliyunSMS
+class Channel::Driver::Sms::Aliyunsms
   NAME = 'sms/aliyunsms'.freeze
 
   def send(options, attr, _notification = false)
     Rails.logger.info "Sending SMS to recipient #{attr[:recipient]}"
     return true if Setting.get('import_mode')
-    Rails.logger.info "Set Aliyun SMS environment"
+    Rails.logger.info "Set Aliyun SMS environment #{attr}"
     Aliyun::Sms.configure do |config|
       config.access_key_secret = options[:access_key_secret]   
       config.access_key_id = options[:access_key_id]            
@@ -19,12 +19,15 @@ class Channel::Driver::Sms::AliyunSMS
     end
     Rails.logger.info "Backend sending aliyun SMS to #{attr[:recipient]}"
     begin
-      template_param = {"message"=>attr[:message]}.to_json
+      template_param = {
+        "ticket"=>attr[:message],
+        "status"=>attr[:recipient]
+      }.to_json
       out_id = ''
       if Setting.get('developer_mode') != true
         Aliyun::Sms.send(attr[:recipient], options[:template_code], template_param, out_id)
         Rails.logger.info "Send SMS Response #{out_id}"
-        raise out_id if '100' != out_id
+        #raise out_id if '100' != out_id
       end
 
       true
